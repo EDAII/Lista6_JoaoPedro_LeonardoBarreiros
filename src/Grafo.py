@@ -29,3 +29,20 @@ class Grafo:
             return True
         else:
             return False
+
+    def BFS_classificacao(self, vertice):
+        visitados = []
+        fila = []
+        for vertice in self.vertices:
+            if not isinstance(vertice, visitados):
+                fila.append(vertice)
+                visitados.append(vertice)
+            else:
+                while fila is not None:
+                    if isinstance(vertice, visitados):
+                        proximo = (fila[0])
+                        fila.pop(proximo)
+                    for vizinho in vertice.vizinho:
+                        if not isinstance(vizinho, visitados):
+                            visitados.append(vizinho)
+                            fila.append(vizinho)
