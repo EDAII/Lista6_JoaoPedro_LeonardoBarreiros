@@ -23,7 +23,6 @@ def defineHabilidade(clube):
     clube.setHabilidade(habilidade)
 
 def geraTimes():
-    #save register owner and car
     if(os.path.isfile('json_times.txt')):
         file = open('json_times.txt', 'r')
         data_json = file.read()
