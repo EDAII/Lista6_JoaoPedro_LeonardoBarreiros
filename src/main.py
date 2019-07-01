@@ -5,41 +5,21 @@ import time
 import json
 import os
 
-def randomHabilidade():
-    habilidade = random.randint(0, 10)
-    return habilidade
-
-def getData():
+# instanciar clube - > ler do arquvo e retornar um array de arrays
+# instanciar habilidade
+# linkar arrays de arrays com cada uma das habilidades
+def definirClube():
     with open('times.txt', 'r') as file:
-        data = file.readline()
-    return data
-
-def defineClube(clube):
-    nome = getData()
-    clube.setNome(nome)
-
-def defineHabilidade(clube):
-    habilidade = randomHabilidade()
-    clube.setHabilidade(habilidade)
-
-def geraTimes():
-    if(os.path.isfile('json_times.txt')):
-        file = open('json_times.txt', 'r')
-        data_json = file.read()
-        data = json.loads(data_json)
-        file.close()
-    else:
-        data = []
-
-    clube = Clube()
-    defineClube(clube)
-    defineHabilidade(clube)
-    file = open('json_times.txt', 'w')
-    clube = {"name": clube.getNome(), "Habilidade": clube.getHabilidade()}   
-    data.append(clube)
-    json_data = json.dumps(data)
-    file.writelines(json_data + '\n')
-    file.close()
+        # i = 0
+        #while i < 20:
+        lines = file.readlines()
+        for data in lines:
+            aData = []
+            # data = file.readline()[:-1]
+            clube = data[:-1], random.randint(0, 10) 
+            aData.append(clube)
+            # i += 1
+            print(aData)
 
 def print_menu():
     print(30 * "-" , "BRASILEIRÃO 2019" , 30 * "-")
@@ -52,14 +32,13 @@ def print_menu():
 if __name__ == '__main__':
     carrega = True
 
-times = []
+clubes = []
 
 while carrega:
     print_menu()
     opt = input("Selecione opção - [1-4]: ")
     if opt == '1':
-        # serie = Grafo()
-        geraTimes()
+        definirClube()    
     # elif opt == '2':
     # elif opt == '3':
     elif opt == '4':
