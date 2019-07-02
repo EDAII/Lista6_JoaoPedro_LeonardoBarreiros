@@ -1,5 +1,7 @@
+from collections import defaultdict
+
 class Vertice:
-    def __init__(self, habilidade, time):
+    def __init__(self, habilidade = [], time = []):
         self.dado = habilidade # informação contida no vertice
         self.vizinho = list() # vertice que esta conectado ao vertice explorado
         self.nome = time
@@ -10,39 +12,23 @@ class Vertice:
             self.vizinho.sort()
 
 class Grafo:
-    vertices = {}
-
-    def insereVertice(self, vertice):
-        if isinstance(vertice, Vertice) and vertice.dado not in self.vertices:
-            self.vertices[vertice.dado] = vertice
-            return True
-        else:
-            return False
-
-    def insereAresta(self, sub, vertice):
-        if sub in self.vertices and vertice in self.vertices:
-            for chave, valor in self.vertices.items():
-                if chave == sub:
-                    valor.insereVizinho(vertice)
-                if chave == vertice:
-                    valor.insereVizinho(sub)
-            return True
-        else:
-            return False
-
-    def BFS_classificacao(self, vertice):
-        visitados = []
+    def __init__(self): 
+        self.grafo = defaultdict(list) 
+  
+    def insereAresta(self, origem, destino): 
+        self.grafo[origem].append(destino) 
+  
+    def BFS(self, vertice): 
+        visitado = [False] * (len(self.grafo))   
         fila = []
-        for vertice in self.vertices:
-            if not isinstance(vertice, visitados):
-                fila.append(vertice)
-                visitados.append(vertice)
-            else:
-                while fila is not None:
-                    if isinstance(vertice, visitados):
-                        proximo = (fila[0])
-                        fila.pop(proximo)
-                    for vizinho in vertice.vizinho:
-                        if not isinstance(vizinho, visitados):
-                            visitados.append(vizinho)
-                            fila.append(vizinho)
+        fila.append(vertice) 
+        visitado[vertice] = True
+  
+        while fila: 
+            vertice = fila.pop(0) 
+            print ("Vertice:", vertice, end = " ")
+
+            for i in self.grafo[vertice]: 
+                if visitado[i] == False: 
+                    fila.append(i) 
+                    visitado[i] = True
